@@ -1,7 +1,7 @@
 import folium
 import pandas
 
-base_map=folium.Map(location=[38.89,105.89],zoom_start=2,tiles="Stamen Terrain")
+base_map=folium.Map(location=[38.89,105.89],zoom_start=4,tiles="Stamen Terrain")
 data=pandas.read_csv("Volcanoes.txt")
 color=""
 list_lat=list(data["LAT"])
@@ -18,6 +18,8 @@ for lat,lon,elev,name in zip(list_lat,list_lon,list_elev,list_name):
         color="green"
     else:
         color="gray"
-    base_map=base_map.add_child(folium.CircleMarker(location=[lat,lon],radius=6,popup=f"{name}\n{str(elev)}m",fill_color=color,color="black",fill=True,fill_opacity=0.7))
-base_map=base_map.add_child(folium.GeoJson(data=open("world.json","r",encoding="utf-8-sig").read()))
+    fgv.add_child(folium.CircleMarker(location=[lat,lon],radius=6,popup=f"{name}\n{str(elev)}m",fill_color=color,color="black",fill=True,fill_opacity=0.7))
+base_map.add_child(fgp)
+base_map.add_child(fgv)
+base_map.add_child(folium.LayerControl())
 base_map=base_map.save("display.html")
