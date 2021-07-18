@@ -1,0 +1,4 @@
+([('app1',
+   '/Users/bhanubhadouria/Desktop/Python Codes/Desktop SQL Book Inventory GUI '
+   'App/dist/app1',
+   'EXECUTABLE')],)
