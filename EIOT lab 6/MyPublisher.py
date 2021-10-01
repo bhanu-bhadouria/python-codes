@@ -2,10 +2,10 @@ import time
 import paho.mqtt.client as paho
 #import Adafruit_DHT as dht 
 
-broker="broker.hivemq.com"
+#broker="broker.hivemq.com"
 #broker="172.16.180.240"
 #broker=“mqtt.eclipse.org“
-#broker = "test.mosquitto.org"
+broker = "test.mosquitto.org"
 
 def on_connect(client2, userdata, flags, rc):
     print("Publisher Connected with result code "+str(rc))

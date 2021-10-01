@@ -1,0 +1,364 @@
+#:kivy 1.11.1
+<LoginScreen>:
+    GridLayout:
+        cols: 1
+        padding: 15,15
+        spacing: 20,20
+        GridLayout:
+            cols: 1
+            Label:
+                text: "User Login"
+                font_size: "20sp"
+                pos_hint: {"center_x": 0.5,"center_y":0.8}
+            TextInput:
+                id: username
+                hint_text: "Username"
+                size: (650,150)
+            TextInput:
+                id: password
+                password: True
+                hint_text: "Password"
+                size: (650,150)
+        GridLayout:
+            cols: 1
+        RelativeLayout:
+            Button:
+                text: "Login"
+                on_press: root.login(root.ids.username.text, root.ids.password.text)
+                size: (300,150)
+            Label:
+                id: login_wrong
+                text: ""
+                size_hint: 0.3, 0.1
+                pos_hint: {"center_x": 0.5, "center_y": 0.1}
+        GridLayout:
+            cols: 2
+        RelativeLayout:
+            Button:
+                text: "SignUp"
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == "normal" else 0.5
+                color: 0.1,0.7,1,1
+                on_press: root.sign_up()
+                pos_hint: {"center_x": 0.8,"center_y":0.1}
+<SignupScreen>:
+    GridLayout:
+        cols: 1
+    RelativeLayout:
+        Label:
+            text: "SIGNUP SCREEN"
+            font_size: "20sp"
+            pos_hint: {"center_x": 0.5,"center_y":0.9}
+        TextInput:
+            id: name
+            hint_text: "FIRSTNAME"
+            size_hint: 0.7,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.8}
+        TextInput:
+            id: password
+            hint_text: "***PASSWORD***"
+            size_hint: 0.7,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.65}
+        TextInput:
+            id: email
+            hint_text: "XYZ@GMAIL.COM"
+            size_hint: 0.7,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.5}
+        TextInput:
+            id: city
+            hint_text: "BANGLORE,DELHI ETC."
+            size_hint: 0.7,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.35}
+        TextInput:
+            id: phone
+            hint_text: "7972441393 etc"
+            size_hint: 0.7,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.15}
+        Button:
+            text:"Submit"
+            on_press: root.sign(root.ids.name.text,root.ids.password.text,root.ids.email.text,root.ids.city.text,root.ids.phone.text)
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.2}
+<AdminLoginScreen>:
+    GridLayout:
+        cols: 2
+        padding: 15,15
+        spacing: 20,20
+        RelativeLayout:
+            Button:
+                text: "Cancel Seats"
+                on_press: root.remove_seats()
+                size_hint: 0.2, 0.1
+                pos_hint: {"center_x": 0.2, "center_y": 0.5}
+            Button:
+                text: "Cancel Train"
+                on_press: root.remove_train()
+                size_hint: 0.2, 0.1
+                pos_hint: {"center_x": 0.8, "center_y": 0.5}
+<CancelSeatsScreen>:
+    GridLayout:
+        cols: 2
+        padding: 15,15
+        spacing: 20,20
+    RelativeLayout:
+        Spinner:
+            id: train_name
+            text:"Train Name"
+            values: ["SHIV GANGA EXPRESS","DECCAN EXPRESS","RAJDHANI EXPRESS","SHATABDI EXPRESS"]
+            on_text: root.spinner_clicked(train_name.text)
+            size_hint: (None, None)
+            pos_hint: {'center_x': 0.2, 'center_y': 0.8}
+            size: (400, 100)
+        Spinner:
+            id: class_name
+            text:"Class Name"
+            values: ["SLEEPER","AC1","AC2","AC3"]
+            on_text: root.class_clicked(class_name.text)
+            size_hint: (None, None)
+            pos_hint: {'center_x': 0.8, 'center_y': 0.8}
+            size: (400, 100)
+    GridLayout:
+        cols:1
+        padding: 15,15
+        spacing: 20,20
+    RelativeLayout:
+        Label:
+            text: "Seats"
+            pos_hint: {"center_x": 0.5, "center_y": 0.72}
+        TextInput:
+            id: seats
+            hint_text: "4,5 etc."
+            size_hint: 0.4,0.2
+            pos_hint: {"center_x": 0.5, "center_y": 0.55}
+        RelativeLayout:
+            Button:
+                text: "Cancel Seats"
+                on_press: 
+                size_hint: 0.2,0.1
+                pos_hint: {"center_x": 0.5,"cnter_y": 0.5}
+
+<CancelTrainScreen>:
+    GridLayout:
+        cols:1
+        padding: 15,15
+        spacing: 20,20    
+    RelativeLayout:
+        Spinner:
+            id: train_name
+            text:"Train Name"
+            values: ["SHIV GANGA EXPRESS","DECCAN EXPRESS","RAJDHANI EXPRESS","SHATABDI EXPRESS"]
+            on_text: root.spinner_clicked(train_name.text)
+            size_hint: (None, None)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+            size: (400, 100)
+        Label:
+            text: "Date"
+            pos_hint: {"center_x": 0.5,"center_y": 0.7} 
+        TextInput:
+            id: dat
+            hint_text: "MM DD YYYY"
+            size_hint: 0.4,0.2
+            pos_hint: {"center_x":0.5,"center_y": 0.55}
+        Button:
+            text:"Cancel Train"
+            on_press:
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x": 0.5,"center_y": 0.3}  
+<TrainReservationScreen>:
+    GridLayout:
+        cols: 1
+        padding: 15,15
+        spacing: 20,20
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Departure & Arrival"
+                font_size: "20sp"
+        GridLayout:
+            cols: 2
+            Label:
+                text:"FROM"
+            Label:
+                text: "TO"
+        GridLayout:
+            cols: 2    
+            TextInput:
+                id: fro
+                hint_text: "ALD,NDLS,BLR etc"
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            TextInput:
+                id: to
+                hint_text: "ALD,NDLS,BLR etc"
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Date"
+        GridLayout:
+            cols: 1
+            TextInput:
+                id: dat
+                hint_text: "DD MM YYYY"
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                size: (500,150)
+        RelativeLayout:
+            Button:
+                text: "TrainDetails"
+                on_press: root.from_to(root.ids.fro.text, root.ids.to.text, root.ids.dat.text)
+                size_hint: 0.3, 0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            
+<TrainDetailsScreen>:
+    GridLayout:
+        cols: 2
+        padding: 15,15
+        spacing: 20,20
+    GridLayout:
+        cols: 2
+    RelativeLayout:
+        Spinner:
+            id:train_name
+            text:"Train Name"
+            values: ["SHIV GANGA EXPRESS","DECCAN EXPRESS","RAJDHANI EXPRESS","SHATABDI EXPRESS"]
+            on_text: root.spinner_clicked(train_name.text)
+            size_hint: (None, None)
+            pos_hint: {'center_x': 0.2, 'center_y': 0.8}
+            size: (400, 100)
+        Label:
+            id:tn
+            text: ""
+            pos_hint: {'center_x': 0.2, 'center_y': 0.75}
+        Spinner:
+            id: class_name
+            text:"Class Name"
+            values: ["SLEEPER","AC1","AC2","AC3"]
+            on_text: root.class_clicked(class_name.text)
+            size_hint: (None, None)
+            pos_hint: {'center_x': 0.8, 'center_y': 0.8}
+            size: (400, 100)
+    GridLayout:
+        cols: 1
+    RelativeLayout:
+        Label:
+            text: "no. of seats to book"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        TextInput:
+            id:seats
+            hint_text:"4,5 etc."
+            size_hint: 0.5,0.2
+            pos_hint: {'center_x': 0.5, 'center_y': 0.43}
+        Label:
+            id:seat_check
+            text:""
+            pos_hint: {'center_x': 0.5, 'center_y': 0.38}
+    GridLayout:
+        cols: 1
+    RelativeLayout:
+        Button:
+            text:"Book Seats"
+            on_press: root.add_seats(root.ids.seats.text)
+            size_hint: 0.2, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+<PassengerDetailsScreen>:
+    GridLayout:
+        cols: 2
+        padding: 15,15
+        spacing: 20,20
+    RelativeLayout:
+        Label:
+            id:PD
+            text: "Passenger 1 Details"
+            font_size: "30sp"
+            pos_hint: {"center_x": 0.5,"center_y":0.9}
+    GridLayout:
+        cols: 2
+    RelativeLayout:
+        TextInput:
+            id:fn
+            hint_text: "FIRST NAME"
+            size_hint: 0.4,0.1
+            pos_hint: {"center_x": 0.2,"center_y":0.7}
+        TextInput:
+            id:ln
+            hint_text: "LAST NAME"
+            size_hint: 0.4,0.1
+            pos_hint: {"center_x": 0.8,"center_y":0.7}
+    GridLayout:
+        cols: 2
+    RelativeLayout:
+        TextInput:
+            id:age
+            hint_text: "AGE: 6,18,65,77 etc"
+            size_hint: 0.4,0.1
+            pos_hint: {"center_x": 0.2,"center_y":0.5}
+        TextInput:
+            id:phone
+            hint_text: "NUMBER: 8374893742 etc"
+            size_hint: 0.4,0.1
+            pos_hint: {"center_x": 0.8,"center_y":0.5}
+    GridLayout:
+        cols: 1
+    RelativeLayout:
+        Spinner:
+            id:gender
+            text: "GENDER"
+            values: ["MALE","FEMALE","OTHERS"]
+            on_text: root.gender_clicked(gender.text)
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.32}
+    GridLayout:
+        cols:1
+    RelativeLayout:
+        Button:
+            text:"Confirm"
+            on_press:root.confirm(root.ids.fn.text,root.ids.ln.text,root.ids.age.text,root.ids.phone.text) 
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x":0.5,"center_y":0.2}
+   
+<TicketDetailsScreen>:
+    GridLayout:
+        cols:1
+    RelativeLayout:
+        TextInput:
+            id:ticket
+            size_hint: 0.6,0.5
+            pos_hint: {"center_x":0.5,"center_y":0.6}
+        Button:
+            text:"Confirm & Exit"
+            on_press:root.exit() 
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x":0.2,"center_y":0.2}
+        Button:
+            text:"show ticket"
+            on_press:root.show_ticket()
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x":0.2,"center_y":0.4}
+        Button:
+            text:"Cancel Ticket"
+            on_press:root.cancel_ticket()
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x":0.8,"center_y":0.2}
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    AdminLoginScreen:
+        name: "AL_screen"
+    SignupScreen:
+        name: "Signup_screen"
+    CancelSeatsScreen:
+        name: "CS_screen"
+    CancelTrainScreen:
+        name: "CT_screen"
+    TrainReservationScreen:
+        name: "TR_screen"
+    TrainDetailsScreen:
+        name: "TD_screen"
+    PassengerDetailsScreen:
+        name: "PD_screen"
+    TicketDetailsScreen:
+        name: "Ticket_screen"
+    
