@@ -2,45 +2,46 @@
 <LoginScreen>:
     GridLayout:
         cols: 1
-        padding: 15,15
-        spacing: 20,20
-        GridLayout:
-            cols: 1
-            Label:
-                text: "User Login"
-                font_size: "20sp"
-                pos_hint: {"center_x": 0.5,"center_y":0.8}
-            TextInput:
-                id: username
-                hint_text: "Username"
-                size: (650,150)
-            TextInput:
-                id: password
-                password: True
-                hint_text: "Password"
-                size: (650,150)
-        GridLayout:
-            cols: 1
-        RelativeLayout:
-            Button:
-                text: "Login"
-                on_press: root.login(root.ids.username.text, root.ids.password.text)
-                size: (300,150)
-            Label:
-                id: login_wrong
-                text: ""
-                size_hint: 0.3, 0.1
-                pos_hint: {"center_x": 0.5, "center_y": 0.1}
-        GridLayout:
-            cols: 2
-        RelativeLayout:
-            Button:
-                text: "SignUp"
-                background_color: 1,1,1,0
-                opacity: 1 if self.state == "normal" else 0.5
-                color: 0.1,0.7,1,1
-                on_press: root.sign_up()
-                pos_hint: {"center_x": 0.8,"center_y":0.1}
+    RelativeLayout:
+        Label:
+            text: "User Login"
+            font_size: "20sp"
+            pos_hint: {"center_x": 0.5,"center_y":0.96}
+    GridLayout:
+        cols: 2
+    RelativeLayout:
+        TextInput:
+            id: username
+            hint_text: "Username"
+            size_hint: 0.7,0.3
+            pos_hint: {"center_x": 0.5,"center_y":0.75}
+        TextInput:
+            id: password
+            password: True
+            hint_text: "Password"
+            size_hint: 0.7,0.3
+            pos_hint: {"center_x": 0.5,"center_y":0.5}
+    GridLayout:
+        cols: 1
+    RelativeLayout:
+        Button:
+            text: "Login"
+            on_press: root.login(root.ids.username.text, root.ids.password.text)
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.28}
+        Label:
+            id: login_wrong
+            text: ""
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+    GridLayout:
+        cols: 2
+    RelativeLayout:
+        Button:
+            text: "SignUp"
+            on_press: root.sign_up()
+            size_hint: 0.2,0.1
+            pos_hint: {"center_x": 0.8,"center_y":0.08}
 <SignupScreen>:
     GridLayout:
         cols: 1
@@ -230,7 +231,7 @@
         Label:
             id:tn
             text: ""
-            pos_hint: {'center_x': 0.2, 'center_y': 0.75}
+            pos_hint: {'center_x': 0.4, 'center_y': 0.75}
         Spinner:
             id: class_name
             text:"Class Name"
@@ -255,13 +256,18 @@
             text:""
             pos_hint: {'center_x': 0.5, 'center_y': 0.38}
     GridLayout:
-        cols: 1
+        cols: 2
     RelativeLayout:
         Button:
             text:"Book Seats"
             on_press: root.add_seats(root.ids.seats.text)
             size_hint: 0.2, 0.1
-            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            pos_hint: {'center_x': 0.2, 'center_y': 0.2}
+        Button:
+            text:"Show Available trains"
+            on_press: root.show_trains()
+            size_hint: 0.2, 0.1
+            pos_hint: {'center_x': 0.8, 'center_y': 0.2}
 <PassengerDetailsScreen>:
     GridLayout:
         cols: 2
@@ -324,7 +330,7 @@
     RelativeLayout:
         TextInput:
             id:ticket
-            size_hint: 0.6,0.5
+            size_hint: 0.9,0.6
             pos_hint: {"center_x":0.5,"center_y":0.6}
         Button:
             text:"Confirm & Exit"
@@ -335,7 +341,7 @@
             text:"show ticket"
             on_press:root.show_ticket()
             size_hint: 0.2,0.1
-            pos_hint: {"center_x":0.2,"center_y":0.4}
+            pos_hint: {"center_x":0.5,"center_y":0.2}
         Button:
             text:"Cancel Ticket"
             on_press:root.cancel_ticket()

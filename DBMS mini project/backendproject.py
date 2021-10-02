@@ -32,28 +32,29 @@ class miniproject():
     def gettraindetails(self,fro,to,day):
         database=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="train_reservation")
         cur=database.cursor() 
-        train=cur.execute(f"""select arrival.train_no,train.name,departure.station_code,departure.departure_time,arrival.station_code,arrival.arrival_time
-                                from arrival
+        train=cur.execute(f"""select arrival.train_no from arrival
                                 inner join departure on arrival.train_no=departure.train_no
                                 inner join train on train.train_no=departure.train_no
                                 where departure.station_code='{fro}' and arrival.station_code='{to}' and train.rest!={day};""")
         result=cur.fetchall()
-        print(result)
-        train_no=[]
+        database.commit()
+        database.close()
         count=0 
         if result != []:
             for a in result:
                 count+=1
             for a in range(0,count):
-                train_no.append(result[a][0])
-        database.commit()
-        database.close()
+                miniproject.train_no.append(result[a][0])
+            return miniproject.train_no
+        else:
+            return "No train exist between the two stations"
     
     def insertticket(self,tn,seats,uname,d):
         database=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="train_reservation")
         cur=database.cursor() 
         cur.execute(f"""insert into ticket(train_no,username,no_of_passengers,d_of_journey) values({tn},'{uname}',{seats},'{d}');
                     """)
+                
         database.commit()
         database.close()
 
@@ -66,6 +67,23 @@ class miniproject():
         database.commit()
         database.close()
 
+    def TicketDetails(self,tno):
+        database=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="train_reservation")
+        cur=database.cursor()   
+        cur.execute(f"""select ticket.ticket_no,ticket.no_of_passengers,ticket.d_of_journey,passenger.Passenger_id,passenger.first_name,passenger.last_name,passenger.gender,passenger.phone_no,passenger.age,passenger.class 
+                      from ticket inner join passenger on
+                      ticket.ticket_no=passenger.ticket_no where ticket.ticket_no={tno};""") 
+        result=cur.fetchall()
+        database.commit()
+        database.close()
+        return result
+
+    def CancelTicket(self,tno):
+        con=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="train_reservation")
+        cur=con.cursor()
+        cur.execute("swddfefe")
+        con.commit()
+        con.close()
         
 
 

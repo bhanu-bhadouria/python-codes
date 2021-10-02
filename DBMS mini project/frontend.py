@@ -9,7 +9,6 @@ from kivy.uix.image import Image
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.button import Button
 
-
 Builder.load_file("designproject.kv")
 
 u=""
@@ -58,9 +57,14 @@ class TrainReservationScreen(Screen):
         global_lists=globals()
         born = datetime.strptime(date, '%d %m %Y').weekday()
         global_lists["d"]=date
-        backendproject.miniproject.gettraindetails(self,fro,to,born)
-        self.manager.transition.direction = "left"
-        self.manager.current = "TD_screen"
+        result=backendproject.miniproject.gettraindetails(self,fro,to,born)
+        if type(result) == str: 
+            self.manager.current = "TR_screen"
+            
+        else:
+            self.manager.transition.direction = "left"
+            self.manager.current = "TD_screen"
+
 cl=""
 seats=0
 class TrainDetailsScreen(Screen):
@@ -69,10 +73,12 @@ class TrainDetailsScreen(Screen):
         trains={"SHIV GANGA EXPRESS":12559,"DECCAN EXPRESS":12560,"RAJDHANI EXPRESS":12581,"SHATABDI EXPRESS":12582}
         if name in trains.keys():
             TrainDetailsScreen.details.append(trains[name])
+
     def class_clicked(self,clas):
         globals_list=globals()
         classes={"SLEEPER":"seat_sleeper","AC1":"seat_first_class_AC","AC2":"seat_second_class_AC","AC3":"seat_third_class_AC"}
         globals_list["cl"]=classes[clas]
+
     def add_seats(self,seat):
         globals_list=globals()
         seat=int(seat)
@@ -86,6 +92,14 @@ class TrainDetailsScreen(Screen):
         backendproject.miniproject.insertticket(self,TrainDetailsScreen.details[0],TrainDetailsScreen.details[1],TrainDetailsScreen.details[2],TrainDetailsScreen.details[3])
         self.manager.transition.direction = "left"
         self.manager.current = "PD_screen"
+
+    def show_trains(self):
+        trains={12559:"SHIV GANGA EXPRESS",12560:"DECCAN EXPRESS",12581:"RAJDHANI EXPRESS",12582:"SHATABDI EXPRESS"}
+        self.ids.tn.text="Available Trains: "
+        if backendproject.miniproject.train_no !=[]:
+            for a in backendproject.miniproject.train_no:
+                self.ids.tn.text+=f"{trains[a]},"
+            
 
 class PassengerDetailsScreen(Screen):
     a=2
@@ -101,6 +115,7 @@ class PassengerDetailsScreen(Screen):
         cur=con.cursor()
         cur.execute("select ticket_no from ticket order by ticket_no desc limit 1;")
         tno=cur.fetchone()
+        globals_list["t_no"]=tno[0]
         con.commit()
         con.close()
         PassengerDetailsScreen.details.append(tno[0])
@@ -127,16 +142,25 @@ class PassengerDetailsScreen(Screen):
         gen={"MALE":'M',"FEMALE":'F',"OTHERS":"O"}
         PassengerDetailsScreen.details.append(gen[gender])
 class TicketDetailsScreen(Screen):
+    t_no=0
     def exit(self):
         self.manager.transition.direction = "right"
         self.manager.current= "login_screen"
     def show_ticket(self):
-        pass
+        tic=""
+        globals_list=globals()
+        tno=globals_list["t_no"]
+        ticket=backendproject.miniproject.TicketDetails(self,tno)
+        self.ids.ticket.text=f"tno\tseats d_of_journey\tpid\tfname\tlname\tsex\tpno  \tage\t  class\n"
+        for a in ticket:
+            for b in range(0,10):
+                tic+=f"{a[b]}\t"
+            self.ids.ticket.text+=f"{tic}\n"
+            tic=""
     def cancel_ticket(self):
         pass
 
-class TicketDetailsScreen(Screen):
-    pass
+
 class RootWidget(ScreenManager):
     pass
 
