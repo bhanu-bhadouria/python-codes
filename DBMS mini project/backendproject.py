@@ -81,7 +81,7 @@ class miniproject():
     def CancelTicket(self,tno):
         con=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="train_reservation")
         cur=con.cursor()
-        cur.execute("swddfefe")
+        cur.execute(f"delete from ticket where ticket_no={tno};")
         con.commit()
         con.close()
         

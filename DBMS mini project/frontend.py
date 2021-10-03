@@ -52,12 +52,16 @@ class CancelTrainScreen(Screen):
     pass
 d=""
 class TrainReservationScreen(Screen):
-
-    def from_to(self,fro,to,date):
+    check=[]
+    def from_clicked(self,fro):
+        TrainReservationScreen.check.append(fro)
+    def to_clicked(self,to):
+        TrainReservationScreen.check.append(to)
+    def from_to(self,date):
         global_lists=globals()
         born = datetime.strptime(date, '%d %m %Y').weekday()
         global_lists["d"]=date
-        result=backendproject.miniproject.gettraindetails(self,fro,to,born)
+        result=backendproject.miniproject.gettraindetails(self,TrainReservationScreen.check[0],TrainReservationScreen.check[1],born)
         if type(result) == str: 
             self.manager.current = "TR_screen"
             
@@ -141,11 +145,10 @@ class PassengerDetailsScreen(Screen):
     def gender_clicked(self,gender):
         gen={"MALE":'M',"FEMALE":'F',"OTHERS":"O"}
         PassengerDetailsScreen.details.append(gen[gender])
+t_no=0
 class TicketDetailsScreen(Screen):
-    t_no=0
     def exit(self):
-        self.manager.transition.direction = "right"
-        self.manager.current= "login_screen"
+        return 0
     def show_ticket(self):
         tic=""
         globals_list=globals()
@@ -158,7 +161,9 @@ class TicketDetailsScreen(Screen):
             self.ids.ticket.text+=f"{tic}\n"
             tic=""
     def cancel_ticket(self):
-        pass
+        globals_list=globals()
+        tno=globals_list["t_no"]
+        backendproject.miniproject.CancelTicket(self,tno)
 
 
 class RootWidget(ScreenManager):

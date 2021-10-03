@@ -13,14 +13,14 @@
         TextInput:
             id: username
             hint_text: "Username"
-            size_hint: 0.7,0.3
+            size_hint: 0.7,0.1
             pos_hint: {"center_x": 0.5,"center_y":0.75}
         TextInput:
             id: password
             password: True
             hint_text: "Password"
-            size_hint: 0.7,0.3
-            pos_hint: {"center_x": 0.5,"center_y":0.5}
+            size_hint: 0.7,0.1
+            pos_hint: {"center_x": 0.5,"center_y":0.6}
     GridLayout:
         cols: 1
     RelativeLayout:
@@ -28,12 +28,12 @@
             text: "Login"
             on_press: root.login(root.ids.username.text, root.ids.password.text)
             size_hint: 0.2,0.1
-            pos_hint: {"center_x": 0.5,"center_y":0.28}
+            pos_hint: {"center_x": 0.5,"center_y":0.4}
         Label:
             id: login_wrong
             text: ""
             size_hint: 0.2,0.1
-            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+            pos_hint: {"center_x": 0.5, "center_y": 0.25}
     GridLayout:
         cols: 2
     RelativeLayout:
@@ -168,31 +168,37 @@
 <TrainReservationScreen>:
     GridLayout:
         cols: 1
-        padding: 15,15
-        spacing: 20,20
         GridLayout:
             cols: 1
             Label:
                 text: "Departure & Arrival"
                 font_size: "20sp"
+                pos_hint: {'center_x': 0.2, 'center_y': 0.93}
         GridLayout:
             cols: 2
+        RelativeLayout:
             Label:
                 text:"FROM"
+                pos_hint: {'center_x': 0.2, 'center_y': 0.8}
             Label:
                 text: "TO"
+                pos_hint: {'center_x': 0.8, 'center_y': 0.8}
         GridLayout:
             cols: 2    
-            TextInput:
-                id: fro
-                hint_text: "ALD,NDLS,BLR etc"
-                size_hint: 0.3, 0.5
-                pos_hint: {"center_x": 0.5, "center_y": 0.6}
-            TextInput:
-                id: to
-                hint_text: "ALD,NDLS,BLR etc"
-                size_hint: 0.3, 0.5
-                pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            Spinner:
+                id:from_name
+                text:"From Station"
+                values: ["ALD","BLR","NDLS","CNB","GYN","GZB"]
+                on_text: root.from_clicked(from_name.text)
+                pos_hint: {'center_x': 0.2, 'center_y': 0.7}
+                size: (400, 100)
+            Spinner:
+                id:to_name
+                text:"To Station"
+                values: ["ALD","BLR","NDLS","CNB","GYN","GZB"]
+                on_text: root.to_clicked(to_name.text)
+                pos_hint: {'center_x': 0.8, 'center_y': 0.7}
+                size: (400, 100)
         GridLayout:
             cols: 1
             Label:
@@ -208,7 +214,7 @@
         RelativeLayout:
             Button:
                 text: "TrainDetails"
-                on_press: root.from_to(root.ids.fro.text, root.ids.to.text, root.ids.dat.text)
+                on_press: root.from_to(root.ids.dat.text)
                 size_hint: 0.3, 0.5
                 pos_hint: {"center_x": 0.5, "center_y": 0.6}
             
