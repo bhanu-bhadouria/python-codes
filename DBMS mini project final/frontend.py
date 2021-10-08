@@ -22,12 +22,8 @@ class LoginScreen(Screen):
         elif status == 1:
             globals_list["u"]=uname
             self.ids.login_wrong.text="LOGIN SUCCESSFULL"
-            if uname == "admin":
-                self.manager.transition.direction = "right"
-                self.manager.current = "AL_screen"
-            else:
-                self.manager.transition.direction = "left"
-                self.manager.current = "TR_screen"
+            self.manager.transition.direction = "left"
+            self.manager.current = "TR_screen"
         else:
             self.ids.login_wrong.text="PASSWORD INCORRECT"
     def sign_up(self):
@@ -38,18 +34,9 @@ class SignupScreen(Screen):
         backendproject.miniproject.signup(self,n,p,e,c,ph)
         self.manager.transition.direction= "right"
         self.manager.current = "login_screen"
-class AdminLoginScreen(Screen):
-    def remove_seats(self):
-        self.manager.transition.direction = "right"
-        self.manager.current = "CS_screen"
-    def remove_train(self):
-        self.manager.transition.direction = "right"
-        self.manager.current = "CT_screen"
 
-class CancelSeatsScreen(Screen):
-    pass
-class CancelTrainScreen(Screen):
-    pass
+
+
 d=""
 class TrainReservationScreen(Screen):
     check=[]
@@ -115,7 +102,7 @@ class PassengerDetailsScreen(Screen):
         PassengerDetailsScreen.details.append(last)
         PassengerDetailsScreen.details.append(ag)
         PassengerDetailsScreen.details.append(phone)
-        con=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="train_reservation")
+        con=mysql.connector.connect(host="localhost",user="root",passwd="Bhadouria123",database="Train_Reservation")
         cur=con.cursor()
         cur.execute("select ticket_no from ticket order by ticket_no desc limit 1;")
         tno=cur.fetchone()
@@ -148,7 +135,7 @@ class PassengerDetailsScreen(Screen):
 t_no=0
 class TicketDetailsScreen(Screen):
     def exit(self):
-        return 0
+        quit()
     def show_ticket(self):
         tic=""
         globals_list=globals()
@@ -163,6 +150,7 @@ class TicketDetailsScreen(Screen):
     def cancel_ticket(self):
         globals_list=globals()
         tno=globals_list["t_no"]
+        self.ids.ticket.text = ''
         backendproject.miniproject.CancelTicket(self,tno)
 
 

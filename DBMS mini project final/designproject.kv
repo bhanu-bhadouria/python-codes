@@ -80,91 +80,7 @@
             on_press: root.sign(root.ids.name.text,root.ids.password.text,root.ids.email.text,root.ids.city.text,root.ids.phone.text)
             size_hint: 0.2,0.1
             pos_hint: {"center_x": 0.5,"center_y":0.2}
-<AdminLoginScreen>:
-    GridLayout:
-        cols: 2
-        padding: 15,15
-        spacing: 20,20
-        RelativeLayout:
-            Button:
-                text: "Cancel Seats"
-                on_press: root.remove_seats()
-                size_hint: 0.2, 0.1
-                pos_hint: {"center_x": 0.2, "center_y": 0.5}
-            Button:
-                text: "Cancel Train"
-                on_press: root.remove_train()
-                size_hint: 0.2, 0.1
-                pos_hint: {"center_x": 0.8, "center_y": 0.5}
-<CancelSeatsScreen>:
-    GridLayout:
-        cols: 2
-        padding: 15,15
-        spacing: 20,20
-    RelativeLayout:
-        Spinner:
-            id: train_name
-            text:"Train Name"
-            values: ["SHIV GANGA EXPRESS","DECCAN EXPRESS","RAJDHANI EXPRESS","SHATABDI EXPRESS"]
-            on_text: root.spinner_clicked(train_name.text)
-            size_hint: (None, None)
-            pos_hint: {'center_x': 0.2, 'center_y': 0.8}
-            size: (400, 100)
-        Spinner:
-            id: class_name
-            text:"Class Name"
-            values: ["SLEEPER","AC1","AC2","AC3"]
-            on_text: root.class_clicked(class_name.text)
-            size_hint: (None, None)
-            pos_hint: {'center_x': 0.8, 'center_y': 0.8}
-            size: (400, 100)
-    GridLayout:
-        cols:1
-        padding: 15,15
-        spacing: 20,20
-    RelativeLayout:
-        Label:
-            text: "Seats"
-            pos_hint: {"center_x": 0.5, "center_y": 0.72}
-        TextInput:
-            id: seats
-            hint_text: "4,5 etc."
-            size_hint: 0.4,0.2
-            pos_hint: {"center_x": 0.5, "center_y": 0.55}
-        RelativeLayout:
-            Button:
-                text: "Cancel Seats"
-                on_press: 
-                size_hint: 0.2,0.1
-                pos_hint: {"center_x": 0.5,"cnter_y": 0.5}
 
-<CancelTrainScreen>:
-    GridLayout:
-        cols:1
-        padding: 15,15
-        spacing: 20,20    
-    RelativeLayout:
-        Spinner:
-            id: train_name
-            text:"Train Name"
-            values: ["SHIV GANGA EXPRESS","DECCAN EXPRESS","RAJDHANI EXPRESS","SHATABDI EXPRESS"]
-            on_text: root.spinner_clicked(train_name.text)
-            size_hint: (None, None)
-            pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-            size: (400, 100)
-        Label:
-            text: "Date"
-            pos_hint: {"center_x": 0.5,"center_y": 0.7} 
-        TextInput:
-            id: dat
-            hint_text: "MM DD YYYY"
-            size_hint: 0.4,0.2
-            pos_hint: {"center_x":0.5,"center_y": 0.55}
-        Button:
-            text:"Cancel Train"
-            on_press:
-            size_hint: 0.2,0.1
-            pos_hint: {"center_x": 0.5,"center_y": 0.3}  
 <TrainReservationScreen>:
     GridLayout:
         cols: 1
@@ -237,7 +153,7 @@
         Label:
             id:tn
             text: ""
-            pos_hint: {'center_x': 0.4, 'center_y': 0.75}
+            pos_hint: {'center_x': 0.5, 'center_y': 0.67}
         Spinner:
             id: class_name
             text:"Class Name"
@@ -357,14 +273,10 @@
 <RootWidget>:
     LoginScreen:
         name: "login_screen"
-    AdminLoginScreen:
-        name: "AL_screen"
+    
     SignupScreen:
         name: "Signup_screen"
-    CancelSeatsScreen:
-        name: "CS_screen"
-    CancelTrainScreen:
-        name: "CT_screen"
+    
     TrainReservationScreen:
         name: "TR_screen"
     TrainDetailsScreen:
