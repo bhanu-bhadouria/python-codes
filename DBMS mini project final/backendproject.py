@@ -88,4 +88,3 @@ class miniproject():
         con.commit()
         con.close()
 
-miniproject.TicketDetails(0,1033)
